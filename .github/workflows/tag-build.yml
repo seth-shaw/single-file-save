@@ -6,7 +6,7 @@ on:
       - "**"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -36,3 +36,22 @@ jobs:
             sfc.yml.example
             README.md
           if-no-files-found: error
+
+      - name: Publish files to GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="$GITHUB_REF_NAME"
+          files=(
+            "dist/singlefile_companion.exe"
+            "sfc.yml.example"
+            "README.md"
+          )
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$tag" "${files[@]}" --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$tag" "${files[@]}" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "$tag" \
+              --generate-notes
+          fi

@@ -20,7 +20,7 @@ The Docker build runs the Go tests and cross-compiles `dist\singlefile_companion
 
 ## GitHub Actions
 
-The test workflow runs `go test ./...` on pushes and pull requests. Pushing any Git tag triggers a Docker build for Windows/amd64 and uploads the executable, example config, and README as a downloadable Actions artifact for that run.
+The test workflow runs `go test ./...` on pushes and pull requests. Pushing any Git tag triggers a Docker build for Windows/amd64, attaches the executable, example config, and README to that tag's GitHub release (creating the release if needed), and uploads the same files as a downloadable Actions artifact for the run.
 
 ## Configure the archive
 
