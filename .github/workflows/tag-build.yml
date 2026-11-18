@@ -1,0 +1,38 @@
+name: Build tagged artifact
+
+on:
+  push:
+    tags:
+      - "**"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Windows executable
+        run: >-
+          docker buildx build
+          --platform linux/amd64
+          --build-arg TARGETOS=windows
+          --build-arg TARGETARCH=amd64
+          --output type=local,dest=dist
+          .
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: singlefile-companion-windows-amd64
+          path: |
+            dist/singlefile_companion.exe
+            sfc.yml.example
+            README.md
+          if-no-files-found: error
