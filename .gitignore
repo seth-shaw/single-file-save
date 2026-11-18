@@ -1,0 +1,23 @@
+# Go build and test outputs
+/bin/
+/dist/
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+coverage.*
+
+# Go workspace files
+go.work
+go.work.sum
+
+# Local configuration
+/sfc.yml
+.env
+.env.*
+!.env.example
+
+# Docker local data
+.docker/

@@ -1,0 +1,6 @@
+# Use the absolute path to the archive folder inside your Box-synced directory.
+archive_dir: "C:\\Users\\YOUR_NAME\\WebArchives"
+
+# Optional; these files are created inside archive_dir.
+index_jsonl: "index.jsonl"
+index_html: "index.html"
