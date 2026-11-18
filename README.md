@@ -18,6 +18,10 @@ docker build --output "type=local,dest=dist" .
 
 The Docker build runs the Go tests and cross-compiles `dist\singlefile_companion.exe` for Windows/amd64. Keep the executable in a stable directory; Edge's native-host registration points to its full path.
 
+## GitHub Actions
+
+The test workflow runs `go test ./...` on pushes and pull requests. Pushing any Git tag triggers a Docker build for Windows/amd64 and uploads the executable, example config, and README as a downloadable Actions artifact for that run.
+
 ## Configure the archive
 
 Copy the example config beside the executable and edit it:
